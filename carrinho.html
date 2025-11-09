@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aumont Paris | Carrinho</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">Aumont<span> Paris</span></div>
+
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Início</a>
+        <a href="produtos.html" class="nav-link"><i class="fa-solid fa-shirt"></i> Produtos</a>
+        <a href="carrinho.html" class="nav-link active"><i class="fa-solid fa-basket-shopping"></i> Carrinho</a>
+        <a href="cadastro.html" class="nav-link"><i class="fa-solid fa-user"></i> Entrar</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="carrinho-container">
+    <section class="carrinho-box">
+      <h2>Seu Carrinho</h2>
+      <p class="subtitle">Confira os produtos selecionados antes de finalizar a compra.</p>
+
+      <!-- Lista de produtos carregada dinamicamente -->
+      <div class="carrinho-itens" id="listaCarrinho"></div>
+
+      <!-- Total e botão -->
+      <div class="carrinho-total">
+        <p>Total: <span id="valorTotal">R$ 0,00</span></p>
+        <button id="finalizarCompra" class="btn-auth">Finalizar Compra</button>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <p>© 2025 Aumont Paris | Desenvolvido por Pedro Andrade, Paulo Victor, Carlos Miguel e Victor.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

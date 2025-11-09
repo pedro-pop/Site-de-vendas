@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aumont Paris | Login</title>
+
+  <!-- Fontes e Ícones -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- CSS Principal -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">Aumont<span> Paris</span></div>
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Início</a>
+        <a href="produtos.html" class="nav-link"><i class="fa-solid fa-shirt"></i> Produtos</a>
+        <a href="carrinho.html" class="nav-link"><i class="fa-solid fa-basket-shopping"></i> Carrinho</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="auth-container">
+    <!-- LOGIN -->
+    <section id="loginBox" class="auth-box active">
+      <h2>Entrar</h2>
+      <form id="formLogin">
+        <label for="loginEmail">E-mail</label>
+        <input type="email" id="loginEmail" placeholder="seuemail@exemplo.com" required>
+
+        <label for="loginSenha">Senha</label>
+        <div class="input-password">
+          <input type="password" id="loginSenha" placeholder="••••••••" required>
+          <button type="button" class="toggle-pass" data-target="loginSenha" aria-label="Mostrar ou ocultar senha">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+      </form>
+
+      <p class="switch-text">Não tem conta? <a href="#" id="toRegister">Criar conta</a></p>
+    </section>
+
+    <!-- CADASTRO -->
+    <section id="registerBox" class="auth-box">
+      <h2>Criar Conta</h2>
+      <form id="formRegister">
+        <label for="regNome">Nome completo</label>
+        <input type="text" id="regNome" placeholder="Seu nome completo" required>
+
+        <label for="regEmail">E-mail</label>
+        <input type="email" id="regEmail" placeholder="seuemail@exemplo.com" required>
+
+        <label for="regTelefone">Telefone</label>
+        <input type="tel" id="regTelefone" placeholder="(11) 99999-9999" required pattern="[0-9]*" inputmode="numeric" maxlength="11">
+
+        <label for="regCPF">CPF</label>
+        <input type="text" id="regCPF" placeholder="00000000000" required pattern="[0-9]*" inputmode="numeric" maxlength="11">
+
+        <label for="regCEP">CEP</label>
+        <input type="text" id="regCEP" placeholder="00000000" required pattern="[0-9]*" inputmode="numeric" maxlength="8">
+
+        <label for="regSenha">Senha</label>
+        <div class="input-password">
+          <input type="password" id="regSenha" placeholder="Crie uma senha" required>
+          <button type="button" class="toggle-pass" data-target="regSenha" aria-label="Mostrar ou ocultar senha">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+
+        <button type="submit" class="btn-auth">Cadastrar</button>
+      </form>
+
+      <p class="switch-text">Já tem uma conta? <a href="#" id="toLogin">Entrar</a></p>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <p>© 2025 Aumont Paris | Desenvolvido por Pedro Andrade, Paulo Victor, Carlos Miguel e Victor.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
