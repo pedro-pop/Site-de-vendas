@@ -330,3 +330,48 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+/*===============================================================
+   CALCULO DE FRETE USANDO CEP 
+================================================================*/
+< script >
+    função assíncrona soltarFrete() {
+      const  cep  =  document.getElementById ( ' cep ' ) . value.replace ( / \ D / g , ' ' ) ; 
+      const  resultado  =  documento . getElementById ( 'resultado' ) ;
+
+      se (cep.length !== 8) {
+        resultado . innerHTML  =  "<span style='color:red;'>CEP inválido.</span>" ;
+        retornar;
+      }
+
+      resultado . innerHTML  =  "Calculando..." ;
+
+      tentar {
+        const  response  =  await  fetch ( `https://viacep.com.br/ws/ ${ cep } /json/` ) ;
+        const  data  =  await  response.json ( ) ;​​
+
+        se (dados.erro) {
+          resultado . innerHTML  =  "<span style='color:red;'>CEP não encontrado.</span>" ;
+          retornar;
+        }
+
+        // Simulação de valor de frete conforme UF
+        const  regioes  =  {
+          "SP": 15,90, "RJ": 16,90, "MG": 17,90, "ES": 18,90, // Sudeste
+          “PR”: 19,90, “SC”: 20,90, “RS”: 21,90, //Sul
+          “DF”: 22,90, “GO”: 23,90, “MS”: 24,90, “MT”: 25,90, //Centro-Oeste
+          "BA": 26,90, "PE": 27,90, "CE": 28,90, "RN": 29,90, // Nordeste
+          "PA": 31,90, "AM": 34,90, "RR": 36,90, "AC": 37,90, // Norte
+        } ;
+
+        const valorFrete = regiãoes[data.uf] || 29,90;
+
+        resultado . innerHTML  =  `
+          <p><strong>Endereço:</strong> ${ data . logradouro  ||  '---' } , ${ dados . bairro  ||  '---' } - ${ dados . localidade } / ${ dados . uf } </p>
+          <p><strong>Valor do frete:</strong> R$ ${ valorFrete . toFixed ( 2 ) } </p>
+          <p><small>Entrega estimada em 5 a 7 dias úteis.</small></p>
+        ` ;
+      } catch (erro) {
+        resultado . innerHTML  =  "<span style='color:red;'>Erro ao consultar o CEP.</span>" ;
+      }
+    }
+  </script>​​
