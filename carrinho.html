@@ -40,6 +40,13 @@
         <p>Total: <span id="valorTotal">R$ 0,00</span></p>
         <button id="finalizarCompra" class="btn-auth">Finalizar Compra</button>
       </div>
+      <!-- Calculo de frete -->
+      <div class="frete-box" style="margin-top: 20px;">
+        <h3>Calcular Frete</h3>
+        <input type="text" id="cep" placeholder="Digite seu CEP" maxlength="9" style="width:%;padding:7px;border-radius:1px;border:1px solid #8f8e8e;margin-bottom:16px;">
+        <button class="btn-auth" onclick="calcularFrete()"style="width:70%;">Calcular Frete</button>
+        <div id="resultado" style="margin-top:7px;font: size 15px;"></div>
+      </div>
     </section>
   </main>
 
