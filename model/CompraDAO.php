@@ -1,10 +1,10 @@
 <?php 
-    include("./database/conexao.php");
-    include("./dto/ComprasDTO.php");
+    include("../database/conexao.php");
+    include("../dto/ComprasDTO.php");
 
     class CompraDAO{
         private $pdo;
-        private $table = "compra";
+        private $table = "compras";
 
         public function __construct()
         {
@@ -22,8 +22,7 @@
 
              while($linha = $stmt->fetch(PDO::FETCH_ASSOC)){
                 $compra = new ComprasDTO(
-                    $linha["id"],
-                    $linha["id_clinte"],
+                    $linha["id_cliente"],
                     $linha["id_produto"],
                     $linha["quantidade"],
                     $linha["subtotal"]
@@ -46,7 +45,6 @@
             }
 
             $compra = new ComprasDTO(
-                $linha["id"],
                 $linha["id_cliente"],
                 $linha["id_produto"],
                 $linha["quantidade"],
@@ -87,7 +85,7 @@
         /**
         * @return ComprasDTO|null
         */
-        public function update(ComprasDTO $dto): ?ComprasDTO
+        public function update(int $id, ComprasDTO $dto): ?ComprasDTO
         {
             $sql = "UPDATE {$this->table}
                     SET id_cliente = :id_cliente,
@@ -99,7 +97,7 @@
             $stmt = $this->pdo->prepare($sql);
 
             $ok = $stmt->execute([
-                ":id"         => $dto->id,
+                ":id"         => $id,
                 ":id_cliente" => $dto->id_cliente,
                 ":id_produto" => $dto->id_produto,
                 ":quantidade" => $dto->quantidade,

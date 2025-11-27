@@ -22,8 +22,22 @@ switch ($method) {
 
     case 'POST':
         $input = json_decode(file_get_contents('php://input'), true);
-        $cliente = $dao->create($input);
-        echo json_encode($cliente);
+        $cliente = new ClienteDTO(
+            $input["id"],
+            $input["name"],
+            $input["password"],
+            $input["cep"],
+            $input["estado"],
+            $input["cidade"],
+            $input["bairro"],
+            $input["rua"],
+            $input["numero"],
+            $input["email"],
+            $input["cpf"],
+            $input["telefone"]
+        );
+        $clienteDAO = $dao->create($cliente);
+        echo json_encode($clienteDAO);
         break;
 
     case 'PUT':
@@ -33,8 +47,22 @@ switch ($method) {
             echo json_encode(['error' => 'ID é obrigatório']);
             exit;
         }
-        $cliente = $dao->update((int)$input['id'], $input);
-        echo json_encode($cliente);
+        $cliente = new ClienteDTO(
+            $input["id"],
+            $input["name"],
+            $input["password"],
+            $input["cep"],
+            $input["estado"],
+            $input["cidade"],
+            $input["bairro"],
+            $input["rua"],
+            $input["numero"],
+            $input["email"],
+            $input["cpf"],
+            $input["telefone"]
+        );
+        $clienteDAO = $dao->update((int)$input['id'], $cliente);
+        echo json_encode($clienteDAO);
         break;
 
     case 'DELETE':

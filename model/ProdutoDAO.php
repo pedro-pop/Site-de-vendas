@@ -1,11 +1,11 @@
 <?php
-include("./database/conexao.php");
-include("./dto/ProdutoDTO.php");
+include("../database/conexao.php");
+include("../dto/ProdutoDTO.php");
 
 class ProdutoDAO {
 
     private $pdo;
-    private $table = "produto";
+    private $table = "produtos";
 
     public function __construct()
     {
@@ -13,15 +13,15 @@ class ProdutoDAO {
     }
 
     private function mapToDTO($linha)
-    {
-        return new ProdutoDTO(
-            $linha["id"],
+    {   
+        $produtoDTO = new ProdutoDTO(
             $linha["nome"],
             $linha["descricao"],
             $linha["preco"],
             $linha["quantidade"],
-            $linha["foto"] 
         );
+        $produtoDTO->setID($linha["id"]);
+        return $produtoDTO;
     }
 
     /** @return ProdutoDTO[]|null */
@@ -51,9 +51,9 @@ class ProdutoDAO {
     /** @return ProdutoDTO|null */
     public function create(ProdutoDTO $produto){
     $sql = "INSERT INTO {$this->table} 
-        (nome, descricao, preco, quantidade, foto)
+        (nome, descricao, preco, quantidade)
         VALUES
-        (:nome, :descricao, :preco, :quantidade, :foto)";
+        (:nome, :descricao, :preco, :quantidade)";
 
     $stmt = $this->pdo->prepare($sql);
 
@@ -62,7 +62,6 @@ class ProdutoDAO {
         ":descricao" => $produto->descricao,
         ":preco"     => $produto->preco,
         ":quantidade"=> $produto->quantidade,
-        ":foto"      => $produto->foto
     ]);
 
     $produto->id = (int) $this->pdo->lastInsertId();
@@ -77,19 +76,17 @@ class ProdutoDAO {
             nome = :nome,
             descricao = :descricao,
             preco = :preco,
-            quantidade = :quantidade,
-            foto = :foto
-        WHERE id = :id";
+            quantidade = :quantidade
+        WHERE id = :id ";
 
     $stmt = $this->pdo->prepare($sql);
 
     $stmt->execute([
-        ":id"        => $id,
+        ':id'       => $id,
         ":nome"      => $produto->nome,
         ":descricao" => $produto->descricao,
         ":preco"     => $produto->preco,
         ":quantidade"=> $produto->quantidade,
-        ":foto"      => $produto->foto
     ]);
 
     $produto->id = $id;

@@ -16,7 +16,6 @@ class ClienteDTO
     public string $telefone;
 
     public function __construct(
-        int $id,
         string $name,
         string $password,
         string $cep,
@@ -29,7 +28,6 @@ class ClienteDTO
         string $cpf,
         string $telefone,
     ) {
-        $this->id = $id;
         $this->name = $name;
         $this->password = $password;
         $this->cep = $cep;

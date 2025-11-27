@@ -6,21 +6,20 @@ class ProdutoDTO {
     public $descricao;
     public $preco;
     public $quantidade;
-    public $foto;
+
 
     public function __construct(
-        $id,
         $nome,
         $descricao,
         $preco,
         $quantidade,
-        $foto
     ){
-        $this->id = $id;
         $this->nome = $nome;
         $this->descricao = $descricao;
         $this->preco = $preco;
         $this->quantidade = $quantidade;
-        $this->foto = $foto;
+    }
+    public function setID($id){
+        return $this->id = $id;
     }
 }
