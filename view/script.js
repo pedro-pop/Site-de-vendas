@@ -128,14 +128,53 @@ document.addEventListener("DOMContentLoaded", () => {
   atualizarInterface();
 
   // LOGIN
-  formLogin?.addEventListener("submit", (e) => {
+  formLogin?.addEventListener("submit", async (e) => {
     e.preventDefault();
-    localStorage.setItem("usuarioLogado", "true");
-    atualizarInterface();
-    toast("Login realizado com sucesso!");
-    formLogin.reset();
-    $("#modalOverlay")?.classList.add("hidden");
-    window.location.href = "index.html"; // redireciona
+
+    try {
+      let email = document.getElementById("loginEmail").value
+      let password = document.getElementById("loginSenha").value
+  
+      let body = {
+        email:email,
+        password:password
+      }
+      
+      let response = await fetch("http://localhost/SITE-DE-VENDAS/controller/AuthController.php",{
+        method:"POST",
+        body:JSON.stringify(body)
+      })
+  
+      let data = await response.json()
+      
+      if(response.status === 400){
+        alert(data.error);
+        return
+      }
+
+      if(response.status === 401){
+        alert(data.error);
+        return
+      }
+
+      if(!response.ok){
+        alert(response.statusText)
+        return
+      }
+
+      sessionStorage.setItem("usuarioLogado", JSON.stringify(data));
+      atualizarInterface();
+      alert("Login realizado com sucesso!");
+      formLogin.reset();
+      $("#modalOverlay")?.classList.add("hidden");
+      window.location.href = "index.html"; // redireciona
+    } catch (error) {
+      if(error instanceof Error){
+        alert(error.message)
+        return
+      }
+    }
+    
   });
 
   // CADASTRO

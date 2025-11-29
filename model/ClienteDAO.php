@@ -52,6 +52,17 @@ class ClienteDAO {
         return $linha ? $this->mapToDTO($linha) : null;
     }
 
+    
+    /** @return String[] */
+    public function findByEmail(string $email)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM $this->table WHERE email = :email");
+        $stmt->execute(['email' => $email]);
+
+        $linha = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $linha ? ["id"=> $linha["id"], "nome"=> $linha["name"], "password"=>$linha["password"]] : null;
+    }
+
     /** @return ClienteDTO */
     public function create(ClienteDTO $cliente)
     {

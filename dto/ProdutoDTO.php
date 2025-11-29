@@ -6,6 +6,7 @@ class ProdutoDTO {
     public $descricao;
     public $preco;
     public $quantidade;
+    public $img_path;
 
 
     public function __construct(

@@ -17,22 +17,44 @@ switch ($method){
             
         } else {
             $produtoDAO = $dao->findAll();
+            http_response_code(200);
             echo json_encode($produtoDAO);
         }
         break;
     
     case "POST":
-        $input = json_decode(file_get_contents('php://input'), true);
-        $produtoDTO = new ProdutoDTO(
-            $input["nome"],
-            $input["descricao"],
-            $input["preco"],
-            $input["quantidade"]
-        );
-        $produtoDAO = $dao->create($produtoDTO);
-        echo json_encode($produtoDAO);
-        break;
-        break;
+    $nome = $_POST["nome"];
+    $descricao = $_POST["descricao"];
+    $preco = $_POST["preco"];
+    $quantidade = $_POST["quantidade"];
+
+    // Tratar a imagem
+    if(isset($_FILES["imagem"]) && $_FILES["imagem"]["error"] === 0){
+        $imagem = $_FILES["imagem"];
+        $nomeArquivo = time() . "-" . basename($imagem["name"]);
+        $caminhoUpload = "../uploads/" . $nomeArquivo;
+
+        if(move_uploaded_file($imagem["tmp_name"], $caminhoUpload)){
+            // Caminho relativo ou absoluto para salvar no banco
+            $caminhoDB = "uploads/" . $nomeArquivo;
+        } else {
+            $caminhoDB = null; // ou lidar com erro
+        }
+    } else {
+        $caminhoDB = null;
+    }
+
+    // Criar DTO (incluindo caminho da imagem)
+    $produtoDTO = new ProdutoDTO($nome, $descricao, $preco, $quantidade);
+
+    $produtoDTO->img_path = $caminhoDB;
+
+    // Salvar no banco
+    $produtoDAO = $dao->create($produtoDTO);
+
+    echo json_encode($produtoDAO->img_path = $caminhoDB);
+    break;
+
     
     case 'PUT':
         $input = json_decode(file_get_contents('php://input'), true);

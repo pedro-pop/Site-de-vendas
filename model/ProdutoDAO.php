@@ -20,6 +20,8 @@ class ProdutoDAO {
             $linha["preco"],
             $linha["quantidade"],
         );
+        $produtoDTO->img_path = $linha["img_path"];
+
         $produtoDTO->setID($linha["id"]);
         return $produtoDTO;
     }
@@ -51,9 +53,9 @@ class ProdutoDAO {
     /** @return ProdutoDTO|null */
     public function create(ProdutoDTO $produto){
     $sql = "INSERT INTO {$this->table} 
-        (nome, descricao, preco, quantidade)
+        (nome, descricao, preco, quantidade, img_path)
         VALUES
-        (:nome, :descricao, :preco, :quantidade)";
+        (:nome, :descricao, :preco, :quantidade, :img_path)";
 
     $stmt = $this->pdo->prepare($sql);
 
@@ -62,6 +64,7 @@ class ProdutoDAO {
         ":descricao" => $produto->descricao,
         ":preco"     => $produto->preco,
         ":quantidade"=> $produto->quantidade,
+        ":img_path" => $produto->img_path
     ]);
 
     $produto->id = (int) $this->pdo->lastInsertId();
