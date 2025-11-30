@@ -51,8 +51,8 @@ switch ($method){
 
     // Salvar no banco
     $produtoDAO = $dao->create($produtoDTO);
-
-    echo json_encode($produtoDAO->img_path = $caminhoDB);
+    $produtoDAO->img_path = $caminhoDB;
+    echo json_encode($produtoDAO);
     break;
 
     
